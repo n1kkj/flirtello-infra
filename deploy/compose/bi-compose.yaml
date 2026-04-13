@@ -1,0 +1,9 @@
+services:
+  bi:
+    build:
+      context: ../..
+      dockerfile: deploy/dockerfiles/bi.Dockerfile
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+

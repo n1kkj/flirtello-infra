@@ -1,0 +1,11 @@
+services:
+  mkt-collector:
+    build:
+      context: ../..
+      dockerfile: deploy/dockerfiles/mkt-collector.Dockerfile
+    env_file:
+      - ../../flirtello-mkt-collector/.env
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+

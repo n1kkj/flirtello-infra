@@ -1,0 +1,11 @@
+services:
+  chats:
+    build:
+      context: ../..
+      dockerfile: deploy/dockerfiles/chats.Dockerfile
+    env_file:
+      - ../../flirtello-chats/.env
+    ports:
+      - "8502:8502"
+    restart: unless-stopped
+

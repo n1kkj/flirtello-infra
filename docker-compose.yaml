@@ -1,0 +1,61 @@
+name: flirtello-stack
+
+services:
+  backend:
+    build:
+      context: ./flirtello
+      dockerfile: Dockerfile
+    env_file:
+      - ./flirtello/.env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  mkt-collector:
+    build:
+      context: .
+      dockerfile: deploy/dockerfiles/mkt-collector.Dockerfile
+    env_file:
+      - ./flirtello-mkt-collector/.env
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+
+  chats:
+    build:
+      context: .
+      dockerfile: deploy/dockerfiles/chats.Dockerfile
+    env_file:
+      - ./flirtello-chats/.env
+    ports:
+      - "8502:8502"
+    restart: unless-stopped
+
+  context-images:
+    build:
+      context: .
+      dockerfile: deploy/dockerfiles/context-images.Dockerfile
+    env_file:
+      - ./context-images-microservice/.env
+    ports:
+      - "8010:8010"
+    restart: unless-stopped
+
+  bi:
+    build:
+      context: .
+      dockerfile: deploy/dockerfiles/bi.Dockerfile
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+

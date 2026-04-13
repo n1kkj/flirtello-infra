@@ -1,0 +1,11 @@
+services:
+  backend:
+    build:
+      context: ../../flirtello
+      dockerfile: Dockerfile
+    env_file:
+      - ../../flirtello/.env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
